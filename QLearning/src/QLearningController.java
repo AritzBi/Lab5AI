@@ -84,6 +84,35 @@ public class QLearningController extends Controller {
 
 	/* Performs the chosen action */
 	void performAction(int action) {
+		if(action == 1){
+			middleEngine.setBursting(true);
+			rightEngine.setBursting(false);
+			leftEngine.setBursting(false);
+		} else if (action == 1){
+			middleEngine.setBursting(false);
+			rightEngine.setBursting(true);
+			leftEngine.setBursting(false);
+		} else if (action == 2){
+			middleEngine.setBursting(false);
+			rightEngine.setBursting(false);
+			leftEngine.setBursting(true);		
+		} else if (action == 3){
+			middleEngine.setBursting(true);
+			rightEngine.setBursting(true);
+			leftEngine.setBursting(false);
+		} else if (action == 4){
+			middleEngine.setBursting(true);
+			rightEngine.setBursting(false);
+			leftEngine.setBursting(true);
+		} else if(action==5){
+			middleEngine.setBursting(false);
+			rightEngine.setBursting(true);
+			leftEngine.setBursting(true);
+		} else if(action==0){
+			middleEngine.setBursting(false);
+			rightEngine.setBursting(false);
+			leftEngine.setBursting(false);
+		}
 
 		/* Fire zeh rockets! */
 		/* TODO: Remember to change NUM_ACTIONS constant to reflect the number of actions (including 0, no action) */
