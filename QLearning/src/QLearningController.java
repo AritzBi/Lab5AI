@@ -24,7 +24,7 @@ public class QLearningController extends Controller {
 	RocketEngine middleEngine;
 	RocketEngine rightEngine;
 
-	final static int NUM_ACTIONS = 7; /* The takeAction function must be changed if this is modified */
+	final static int NUM_ACTIONS = 6; /* The takeAction function must be changed if this is modified */
 	
 	/* Keep track of the previous state and action */
 	String previous_state = null;
@@ -88,25 +88,21 @@ public class QLearningController extends Controller {
 			middleEngine.setBursting(true);
 			rightEngine.setBursting(false);
 			leftEngine.setBursting(false);
-		} else if (action == 1){
+		} else if (action == 2){
 			middleEngine.setBursting(false);
 			rightEngine.setBursting(true);
 			leftEngine.setBursting(false);
-		} else if (action == 2){
+		} else if (action == 3){
 			middleEngine.setBursting(false);
 			rightEngine.setBursting(false);
 			leftEngine.setBursting(true);		
-		} else if (action == 3){
+		} else if (action == 4){
 			middleEngine.setBursting(true);
 			rightEngine.setBursting(true);
 			leftEngine.setBursting(false);
-		} else if (action == 4){
+		} else if (action == 5){
 			middleEngine.setBursting(true);
 			rightEngine.setBursting(false);
-			leftEngine.setBursting(true);
-		} else if(action==5){
-			middleEngine.setBursting(false);
-			rightEngine.setBursting(true);
 			leftEngine.setBursting(true);
 		} else if(action==0){
 			middleEngine.setBursting(false);
@@ -150,10 +146,24 @@ public class QLearningController extends Controller {
 				/* Update Q value */
 				if (Qtable.get(prev_stateaction) == null) {
 					Qtable.put(prev_stateaction, 0.0);
-				} 
+				} else{
+					double previousValue=Qtable.get( prev_stateaction);
+					double reward=StateAndReward.getRewardAngle(angle.getValue(), vx.getValue(), vy.getValue());
+					double max=Double.MIN_VALUE;
+//					for(int i=0;i<NUM_ACTIONS;i++){
+//						Double actualValue=Qtable.get( previous_state+i);
+//						if(actualValue !=null && actualValue>max){
+//							max=actualValue.doubleValue();
+//						}
+//					}
+					double finalValue=previousValue+(getMaxActionQValue(new_state)*GAMMA_DISCOUNT_FACTOR-previousValue+reward)*
+							alpha(Ntable.get(prev_stateaction));
+					Qtable.put(prev_stateaction,finalValue);
+				}
 
 				
 				/* TODO: IMPLEMENT Q-UPDATE HERE! */
+				
 				
 				/* See top for constants and below for helper functions */
 				
