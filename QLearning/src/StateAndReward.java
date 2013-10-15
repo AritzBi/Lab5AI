@@ -5,8 +5,9 @@ public class StateAndReward {
 	public static String getStateAngle(double angle, double vx, double vy) {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
-		
-		String state = "OneStateToRuleThemAll";
+		angle =StateAndReward.discretize(angle, 360, -Math.PI,Math.PI);
+
+		String state = "Angle: "+angle;
 		
 		return state;
 	}
